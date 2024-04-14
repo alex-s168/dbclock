@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ $1 == "start" ]; then
+    touch /tmp/clockd.run
+elif [ $1 == "stop" ]; then
+    rm -f /tmp/clockd.run
+else 
+    echo "Usage: $0 start|stop"
+fi
+
