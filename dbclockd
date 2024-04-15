@@ -1,16 +1,16 @@
 #!/bin/sh
-id=-1
+# make sure we don't get the id 0
+notify-send -t 1 "a"
+
+id=0
 while true; do
     if [ -f /tmp/clockd.run ]; then
-	if [ $id -eq -1 ]; then
-	    id=$(notify-send -p "placeholder")
-	fi
-        notify-send -r $id "$(date)"
+	    id=$(notify-send -t 0 -p -r $id "$(date)")
     else
-	if [ $id -ne -1 ]; then
-	    notify-send -r $id -t 10 placeholder
-	    id=-1
-	fi
+	    if [ $id -ne 0 ]; then
+            notify-send -t 10 -r $id "placeholder"
+	        id=0
+	    fi
     fi
     sleep 1
 done
